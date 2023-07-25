@@ -1,8 +1,17 @@
-class Person
+# Define the Nameable class with the correct_name method that raises a NotImplementedError
+class Nameable
+  def correct_name
+    raise NotImplementedError, 'Subclasses must implement the correct_name method.'
+  end
+end
+
+# Modify the Person class to inherit from Nameable
+class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id
 
   def initialize(name: 'Unknown', age: nil, parent_permission: true)
+    super()
     @id = generate_id
     @name = name
     @age = age
@@ -11,10 +20,6 @@ class Person
 
   def can_use_services?
     of_age? || @parent_permission
-  end
-
-  def correct_name
-    @name
   end
 
   private
