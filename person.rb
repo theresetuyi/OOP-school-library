@@ -1,11 +1,5 @@
-# Define the Nameable class with the correct_name method that raises a NotImplementedError
-class Nameable
-  def correct_name
-    raise NotImplementedError, 'Subclasses must implement the correct_name method.'
-  end
-end
+require_relative 'nameable'
 
-# Modify the Person class to inherit from Nameable
 class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id
