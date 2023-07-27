@@ -19,9 +19,17 @@ class App
 
   def list_all_people
     puts 'List of all people:'
-    @people.each do |person|
+    @people.each.with_index(1) do |person, index|
       person_type = person.is_a?(Teacher) ? 'Teacher' : 'Student'
-      puts "#{person.name} (#{person_type})"
+      puts "#{index}. #{person.name} (#{person_type})"
+    end
+  end
+
+  def list_all_people_with_indexes
+    puts 'List of all people:'
+    @people.each_with_index do |person, index|
+      person_type = person.is_a?(Teacher) ? 'Teacher' : 'Student'
+      puts "#{index + 1}. #{person.name} (#{person_type})"
     end
   end
 
@@ -88,19 +96,21 @@ class App
     age = gets.chomp.to_i
 
     puts 'Is this person a teacher or student?'
-    type = gets.chomp.downcase
+    puts '1. Teacher'
+    puts '2. Student'
+    type_choice = gets.chomp.to_i
 
-    if type == 'teacher'
+    if type_choice == 1
       puts 'Enter teacher specialization:'
       specialization = gets.chomp
-      create_person(name: name, age: age, type: type, specialization: specialization)
-    elsif type == 'student'
+      create_person(name: name, age: age, type: 'teacher', specialization: specialization)
+    elsif type_choice == 2
       puts 'Enter student classroom label:'
       classroom_label = gets.chomp
       classroom_instance = Classroom.new(classroom_label)
-      create_person(name: name, age: age, type: type, classroom: classroom_instance)
+      create_person(name: name, age: age, type: 'student', classroom: classroom_instance)
     else
-      puts 'Invalid person type. Please specify either "teacher" or "student".'
+      puts 'Invalid choice. Please select either 1 or 2.'
     end
   end
 
@@ -115,16 +125,21 @@ class App
   end
 
   def create_rental_interactively
-    puts 'Enter person ID:'
-    person_id = gets.chomp.to_i
+    puts 'Select a person by index to create a rental:'
+    list_all_people_with_indexes
+    person_index = gets.chomp.to_i
 
-    puts 'Enter book title:'
-    book_title = gets.chomp
+    if person_index >= 1 && person_index <= @people.length
+      puts 'Enter book title:'
+      book_title = gets.chomp
 
-    puts 'Enter rental date (YYYY-MM-DD):'
-    rental_date = gets.chomp
+      puts 'Enter rental date (YYYY-MM-DD):'
+      rental_date = gets.chomp
 
-    create_rental(person_id, book_title, rental_date)
+      create_rental(@people[person_index - 1].id, book_title, rental_date)
+    else
+      puts 'Invalid person index. Please select a valid index.'
+    end
   end
 
   private
