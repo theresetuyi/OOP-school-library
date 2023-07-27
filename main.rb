@@ -1,24 +1,44 @@
-require_relative 'person'
-require_relative 'book'
-require_relative 'rental'
-require_relative 'classroom'
+require_relative 'app'
 
-# Creating persons
-person1 = Person.new(name: 'John', age: 25)
-person2 = Person.new(name: 'Alice', age: 17, parent_permission: false)
+def welcome_message
+  puts 'Welcome to the School Library!'
+  puts 'Please choose an option:'
+  puts '1. List all books.'
+  puts '2. List all people.'
+  puts '3. Create a person (teacher or student, not a plain Person).'
+  puts '4. Create a book.'
+  puts '5. Create a rental.'
+  puts '6. List all rentals for a given person id.'
+  puts '7. Exit.'
+end
 
-# Creating books
-book1 = Book.new('Book A', 'Author A')
-book2 = Book.new('Book B', 'Author B')
+# Sample usage of the app
 
-# Creating rentals and establishing relationships
-Rental.new(person1, book1, '2023-07-26')
-Rental.new(person1, book2, '2023-07-27')
-Rental.new(person2, book1, '2023-07-28')
+app = App.new
 
-# Accessing rentals for a person and a book
-puts "#{person1.name}'s rentals:"
-person1.rentals.each { |rental| puts "- #{rental.book.title} (#{rental.date})" }
+loop do
+  welcome_message
+  choice = gets.chomp.to_i
 
-puts "#{book1.title}'s rentals:"
-book1.rentals.each { |rental| puts "- #{rental.person.name} (#{rental.date})" }
+  case choice
+  when 1
+    app.list_all_books
+  when 2
+    app.list_all_people
+  when 3
+    app.create_person_interactively
+  when 4
+    app.create_book_interactively
+  when 5
+    app.create_rental_interactively
+  when 6
+    puts 'Enter person ID to list rentals:'
+    person_id = gets.chomp.to_i
+    app.list_rentals_for_person(person_id)
+  when 7
+    puts 'Exiting...'
+    break
+  else
+    puts 'Invalid option. Please try again.'
+  end
+end
