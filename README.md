@@ -121,6 +121,12 @@ rubocop
 - Twitter: [@THERESETUYISAB2](https://twitter.com/THERESETUYISAB2)
 - LinkedIn: [therese-tuyisabe](https://www.linkedin.com/in/therese-tuyisabe/)
 
+👤 **Álvaro Iporre Martínez**
+
+- GitHub: [@alvaroiporre](https://github.com/alvaroiporre)
+- Twitter: [@alvaro.iporre](https://twitter.com/Alvaro41065582)
+- LinkedIn: [Álvaro Iporre](https://www.linkedin.com/in/alvaroiporre/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
