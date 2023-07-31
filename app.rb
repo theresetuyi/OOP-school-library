@@ -1,10 +1,3 @@
-require_relative 'person'
-require_relative 'teacher'
-require_relative 'student'
-require_relative 'book'
-require_relative 'rental'
-require_relative 'classroom'
-
 class App
   def initialize
     @people = []
@@ -22,14 +15,6 @@ class App
     @people.each.with_index(1) do |person, index|
       person_type = person.is_a?(Teacher) ? 'Teacher' : 'Student'
       puts "#{index}. #{person.name} (#{person_type})"
-    end
-  end
-
-  def list_all_people_with_indexes
-    puts 'List of all people:'
-    @people.each_with_index do |person, index|
-      person_type = person.is_a?(Teacher) ? 'Teacher' : 'Student'
-      puts "#{index + 1}. #{person.name} (#{person_type})"
     end
   end
 
