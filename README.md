@@ -59,13 +59,6 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 🚀 Live Demo <a name="live-demo"></a> -->
-
-[Live Demo Link] Very soon
-
-
-## 💻 Getting Started <a name="getting-started"></a>
-
 ### Prerequisites
 
 In order to run this project you need:
@@ -120,6 +113,12 @@ rubocop
 - GitHub: [@theresetuyi](https://github.com/theresetuyi)
 - Twitter: [@THERESETUYISAB2](https://twitter.com/THERESETUYISAB2)
 - LinkedIn: [therese-tuyisabe](https://www.linkedin.com/in/therese-tuyisabe/)
+
+👤 **Álvaro Iporre Martínez**
+
+- GitHub: [@alvaroiporre](https://github.com/alvaroiporre)
+- Twitter: [@alvaro.iporre](https://twitter.com/Alvaro41065582)
+- LinkedIn: [Álvaro Iporre](https://www.linkedin.com/in/alvaroiporre/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
