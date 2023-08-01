@@ -1,6 +1,7 @@
 require_relative 'app'
 require_relative 'teacher'
 require_relative 'student'
+require_relative 'book'
 require 'json'
 
 class AppRunner
@@ -15,6 +16,11 @@ class AppRunner
         @app.people << Student.new(id: p['id'], name: p['name'], age: p['age'], parent_permission: p['parent_permission'], classroom: p['classrooom'])
       end
     end
+
+    books = read_data_from_file('books.json')
+    books.each do |b|
+      @app.books << Book.new(b['title'], b['author'])
+    end
   end
 
   def run
@@ -25,6 +31,7 @@ class AppRunner
       choice = gets.chomp.to_i
       if choice == 7
         store_data(@app.people, 'people.json')
+        store_data(@app.books, 'books.json')
         break
       end
 
