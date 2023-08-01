@@ -1,0 +1,8 @@
+[
+    {"name":"ALICE","age":"25","id":233,"specialization":"computer teacher","class":"Teacher"},
+    {"name":"Alvaro","age":"20","id":632,"classroom":[],"class":"Student","parent_permission":true},
+    {"name":"oop","age":"35","id":935,"specialization":"EE","class":"Teacher"},
+    {"name":"kk","age":"44","id":644,"specialization":"EE","class":"Teacher"},
+    {"name":"qq","age":"13","id":512,"classroom":[],"class":"Student","parent_permission":true}
+  ]
+  
