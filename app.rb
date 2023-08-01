@@ -1,3 +1,9 @@
+require_relative 'teacher'
+require_relative 'student'
+require_relative 'book'
+require_relative 'rental'
+require_relative 'classroom'
+
 class App
   def initialize
     @people = []
@@ -14,7 +20,7 @@ class App
     puts 'List of all people:'
     @people.each.with_index(1) do |person, index|
       person_type = person.is_a?(Teacher) ? 'Teacher' : 'Student'
-      puts "#{index}. #{person.name} (#{person_type})"
+      puts "#{index}. ID:#{person.id} #{person.name}  (#{person_type})"
     end
   end
 
@@ -111,7 +117,7 @@ class App
 
   def create_rental_interactively
     puts 'Select a person by index to create a rental:'
-    list_all_people_with_indexes
+    list_all_people
     person_index = gets.chomp.to_i
 
     if person_index >= 1 && person_index <= @people.length
