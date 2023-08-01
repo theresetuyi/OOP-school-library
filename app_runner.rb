@@ -1,8 +1,20 @@
 require_relative 'app'
+require_relative 'teacher'
+require_relative 'student'
+require 'json'
 
 class AppRunner
   def initialize
     @app = App.new
+    
+    people = read_data_from_file('people.json')
+    people.each do |p|
+      if p['type'] == 'Teacher'
+        @app.people << Teacher.new(id: p['id'], name: p['name'], age: p['age'], parent_permission: p['parent_permission'], specialization: p['specialization'])
+      elsif
+        @app.people << Student.new(id: p['id'], name: p['name'], age: p['age'], parent_permission: p['parent_permission'], classroom: p['classrooom'])
+      end
+    end
   end
 
   def run
@@ -11,7 +23,10 @@ class AppRunner
     loop do
       display_options
       choice = gets.chomp.to_i
-      break if choice == 7
+      if choice == 7
+        store_data(@app.people, 'people.json')
+        break
+      end
 
       handle_choice(choice)
     end
@@ -55,5 +70,29 @@ class AppRunner
     puts 'Enter person ID to list rentals:'
     person_id = gets.chomp.to_i
     @app.list_rentals_for_person(person_id)
+  end
+
+  def read_data_from_file(filename)
+    data = []
+    begin
+      file = File.open(filename, 'r')
+      data = JSON.parse(file.read())
+    rescue Exception => e
+      file = File.open(filename, 'w')
+      file.write('')
+      file.close()
+    end
+    data
+  end
+
+  def store_data(data, filename)
+    object_data = []
+    data.each do |o|
+      object_data << o.to_object 
+    end
+    json_data = JSON.generate(object_data)
+    File.open(filename, 'w') do |file|
+      file.write(json_data)
+    end
   end
 end
