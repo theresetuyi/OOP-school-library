@@ -13,6 +13,6 @@ class Book
   end
 
   def to_object
-    {title: title, author: author}
+    { title: title, author: author }
   end
 end

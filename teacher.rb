@@ -3,7 +3,7 @@ require_relative 'person'
 class Teacher < Person
   attr_accessor :specialization
 
-  def initialize(id: nil, specialization:, name: 'Unknown', age: nil, parent_permission: true)
+  def initialize(specialization:, id: nil, name: 'Unknown', age: nil, parent_permission: true)
     super(id: id, name: name, age: age, parent_permission: parent_permission)
     @specialization = specialization
   end
@@ -13,6 +13,7 @@ class Teacher < Person
   end
 
   def to_object
-    {id: id, name: name, age: age, parent_permission: @parent_permission, specialization: specialization, type: self.class.name}
+    { id: id, name: name, age: age, parent_permission: @parent_permission, specialization: specialization,
+      type: self.class.name }
   end
 end
