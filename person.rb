@@ -1,5 +1,7 @@
+require 'json'
 require_relative 'nameable'
 
+# 'Person' class definition
 class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id, :rentals
@@ -28,9 +30,22 @@ class Person < Nameable
   end
 
   def generate_id
-    # Implementation to generate a unique ID
-    # You can customize this method based on your needs
-    # For simplicity, let's assume it returns a random number between 1000 and 9999
     rand(1000..9999)
   end
+end
+
+# Read the JSON data from 'people.json'
+json_data = File.read('person.json')
+
+# Parse the JSON data to convert it into a Ruby data structure (array of hashes)
+people_array = JSON.parse(json_data)
+
+# Create 'Person' instances and display the information for each person
+people_array.each do |person_data|
+  person = Person.new(name: person_data['name'], age: person_data['age'])
+  puts "Name: #{person.name}"
+  puts "Age: #{person.age}"
+  puts "ID: #{person.id}"
+  puts "Class: #{person_data['class']}"
+  puts '-' * 20
 end
