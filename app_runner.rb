@@ -4,6 +4,7 @@ require_relative 'student'
 require_relative 'book'
 require_relative 'rental'
 require 'json'
+require 'date'
 
 class AppRunner
   def initialize
@@ -91,7 +92,7 @@ class AppRunner
                        {
                          book_title: o.book.title,
                          person_id: o.person.id,
-                         date: o.date.strftime('%Y-%m-%d')
+                         date: Date.strptime(o.date, '%Y-%m-%d')
                        }
                      else
                        o.to_object
