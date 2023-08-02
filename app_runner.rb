@@ -1,8 +1,18 @@
 require_relative 'app'
+require_relative 'teacher'
+require_relative 'student'
+require_relative 'book'
+require_relative 'rental'
+require 'json'
+require 'date'
 
 class AppRunner
   def initialize
     @app = App.new
+
+    load_people_from_file('people.json')
+    load_books_from_file('books.json')
+    load_rentals_from_file('rentals.json')
   end
 
   def run
@@ -11,7 +21,12 @@ class AppRunner
     loop do
       display_options
       choice = gets.chomp.to_i
-      break if choice == 7
+      if choice == 7
+        store_data(@app.people, 'people.json')
+        store_data(@app.books, 'books.json')
+        store_data(@app.rentals, 'rentals.json')
+        break
+      end
 
       handle_choice(choice)
     end
@@ -55,5 +70,74 @@ class AppRunner
     puts 'Enter person ID to list rentals:'
     person_id = gets.chomp.to_i
     @app.list_rentals_for_person(person_id)
+  end
+
+  def read_data_from_file(filename)
+    data = []
+    begin
+      file = File.open(filename, 'r')
+      data = JSON.parse(file.read)
+    rescue StandardError
+      file = File.open(filename, 'w')
+      file.write('[]')
+      file.close
+    end
+    data
+  end
+
+  def store_data(data, filename)
+    object_data = []
+    data.each do |o|
+      object_data << if o.is_a?(Rental)
+                       {
+                         book_title: o.book.title,
+                         person_id: o.person.id,
+                         date: o.date
+                       }
+                     else
+                       o.to_object
+                     end
+    end
+
+    json_data = JSON.generate(object_data)
+    File.write(filename, json_data)
+  end
+
+  def load_people_from_file(filename)
+    people = read_data_from_file(filename)
+    people.each do |p|
+      if p['type'] == 'Teacher'
+        @app.people << Teacher.new(id: p['id'], name: p['name'], age: p['age'],
+                                   parent_permission: p['parent_permission'], specialization: p['specialization'])
+      else
+        @app.people << Student.new(id: p['id'], name: p['name'], age: p['age'],
+                                   parent_permission: p['parent_permission'], classroom: p['classroom'])
+      end
+    end
+  end
+
+  def load_books_from_file(filename)
+    books = read_data_from_file(filename)
+    books.each do |b|
+      @app.books << Book.new(b['title'], b['author'])
+    end
+  end
+
+  def load_rentals_from_file(filename)
+    rentals = read_data_from_file(filename)
+    rentals.each do |r|
+      person = find_person_by_id(r['person_id'])
+      book = find_book_by_title(r['book_title'])
+      rental_date = r['date']
+      @app.rentals << Rental.new(person, book, rental_date)
+    end
+  end
+
+  def find_person_by_id(id)
+    @app.people.find { |person| person.id == id }
+  end
+
+  def find_book_by_title(title)
+    @app.books.find { |book| book.title == title }
   end
 end

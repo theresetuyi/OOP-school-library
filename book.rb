@@ -11,4 +11,8 @@ class Book
   def add_rental(rental)
     @rentals << rental
   end
+
+  def to_object
+    { title: title, author: author }
+  end
 end
