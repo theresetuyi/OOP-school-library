@@ -92,7 +92,7 @@ class AppRunner
                        {
                          book_title: o.book.title,
                          person_id: o.person.id,
-                         date: Date.strptime(o.date, '%Y-%m-%d')
+                         date: o.date
                        }
                      else
                        o.to_object
@@ -128,7 +128,7 @@ class AppRunner
     rentals.each do |r|
       person = find_person_by_id(r['person_id'])
       book = find_book_by_title(r['book_title'])
-      rental_date = Date.parse(r['date'])
+      rental_date = r['date']
       @app.rentals << Rental.new(person, book, rental_date)
     end
   end

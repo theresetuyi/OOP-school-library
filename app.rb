@@ -100,8 +100,7 @@ class App
     elsif type_choice == 2
       puts 'Enter student classroom label:'
       classroom_label = gets.chomp
-      classroom_instance = Classroom.new(classroom_label)
-      create_person(name: name, age: age, type: 'student', classroom: classroom_instance)
+      create_person(name: name, age: age, type: 'student', classroom: classroom_label)
     else
       puts 'Invalid choice. Please select either 1 or 2.'
     end
@@ -154,7 +153,7 @@ class App
       puts "Specialization: #{person.specialization}"
     elsif person.is_a?(Student)
       puts 'Type: Student'
-      puts "Classroom: #{person.classroom&.label}"
+      puts "Classroom: #{person.classroom.label}"
     end
   end
 end
