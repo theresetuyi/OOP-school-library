@@ -7,7 +7,7 @@ describe Teacher do
 
   describe '#initialize' do
     it 'sets the correct specialization' do
-      teacher = Teacher.new(teacher_params)
+      teacher = Teacher.new(**teacher_params)
       expect(teacher.specialization).to eq('Math')
     end
 
@@ -20,18 +20,18 @@ describe Teacher do
 
   describe '#can_use_services?' do
     it 'returns true for a teacher' do
-      teacher = Teacher.new(teacher_params)
+      teacher = Teacher.new(**teacher_params)
       expect(teacher.can_use_services?).to be_truthy
     end
   end
 
   describe '#to_object' do
     it 'returns a hash with the correct attributes' do
-      teacher = Teacher.new(teacher_params)
+      teacher = Teacher.new(**teacher_params)
       expect(teacher.to_object).to eq({
-        id: teacher.id, name: 'John Doe', age: 30, parent_permission: true,
-        specialization: 'Math', type: 'Teacher'
-      })
+                                        id: teacher.id, name: 'John Doe', age: 30, parent_permission: true,
+                                        specialization: 'Math', type: 'Teacher'
+                                      })
     end
   end
 end
