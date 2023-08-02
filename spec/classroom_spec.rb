@@ -16,4 +16,17 @@ describe Classroom do
       expect(classroom.students).to be_empty
     end
   end
+
+  describe '#add_student' do
+    it 'adds a student to the classroom' do
+      student = Student.new(classroom: classroom_label, **student_params)
+
+      expect(student.classroom.students).to include(student)
+    end
+
+    it 'updates the student classroom attribute' do
+      student = Student.new(classroom: classroom_label, **student_params)
+      expect(student.classroom.label).to eq(classroom_label)
+    end
+  end
 end
